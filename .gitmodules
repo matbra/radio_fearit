@@ -1,0 +1,6 @@
+[submodule "src/pocketsphinx-python"]
+	path = src/pocketsphinx-python
+	url = https://github.com/cmusphinx/pocketsphinx-python.git
+[submodule "src/python_mp3_decoder"]
+	path = src/python_mp3_decoder
+	url = https://github.com/michaelboulton/python_mp3_decoder.git
