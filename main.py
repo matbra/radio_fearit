@@ -8,13 +8,22 @@ else:
 from os.path import join, dirname
 import wave
 import struct
+sys.path.append(join(dirname(__file__), "build", "lib", "python3.3", "site-packages", "pymp3decoder-0.0.1-py3.3-linux-x86_64.egg"))
+sys.path.append(join(dirname(__file__), "build", "lib", "python3.3", "site-packages", "pymp3decoder-0.0.1-py3.3-linux-x86_64.egg", "pymp3decoder"))
+
+print(sys.path)
 from pymp3decoder import Decoder as Decoder_mp3
+
+sys.path.append(join(dirname(__file__), "build", "lib", "python3.3", "site-packages", "pocketsphinx-0.0.9-py3.3-linux-x86_64.egg"))
+sys.path.append(join(dirname(__file__), "build", "lib", "python3.3", "site-packages", "pocketsphinx-0.0.9-py3.3-linux-x86_64.egg", "pocketsphinx"))
+sys.path.append(join(dirname(__file__), "build", "lib", "python3.3", "site-packages", "pocketsphinx-0.0.9-py3.3-linux-x86_64.egg", "sphinxbase"))
+# sys.path.append(join(dirname(__file__), "build", "lib", "python3.3", "site-packages", "sphinxbase"))
 
 from pocketsphinx.pocketsphinx import *
 from sphinxbase.sphinxbase import  *
 
 CHUNK_SIZE = 4096
-MODELDIR = join(dirname(__file__), "../sphinx_models/de_DE")
+MODELDIR = join(dirname(__file__), "./sphinx_models/de_DE")
 
 def find_frame_start(buffer):
     buf_conv = struct.unpack_from("B" * len(buffer), buffer)
