@@ -60,6 +60,15 @@ def streamurl(url):
     ps_config.set_string('-lm', join(MODELDIR, 'voxforge.lm.DMP'))
     ps_config.set_string('-dict', join(MODELDIR, 'voxforge.dic'))
     ps_config.set_string('-logfn', '/dev/null')
+
+    if True:
+        # set some more parameters from the README.md accompanying the language model
+        # ps_config.set_string("-lw", "10")
+        # pass
+        # ps_config.set_string("-wip", "0.2")
+        ps_config.set_string("-agc", "none")
+        ps_config.set_string("-varnorm", "no")
+        ps_config.set_string("-cmn", "current")
     dec_speech = Decoder(ps_config)
 
     # initialize the database connection
@@ -90,7 +99,7 @@ def streamurl(url):
 
     last = bytearray([])
     dec_speech.start_utt()
-    in_speech_bf = True
+    in_speech_bf = False
     while True:
         decoded, last = dec_mp3.decode(chunk, last)
         chunk = u.read(CHUNK_SIZE)
@@ -108,8 +117,8 @@ def streamurl(url):
             except AttributeError:
                 pass
 
-        if dec_speech.get_in_speech():
-            pass
+        # if dec_speech.get_in_speech():
+        #     pass
 
         if dec_speech.get_in_speech() != in_speech_bf:
             in_speech_bf = dec_speech.get_in_speech()
