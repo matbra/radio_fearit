@@ -55,7 +55,7 @@ def streamurl(url):
     fs_target = 16000 # required by sphinx
 
 
-    b_write_wave_file = True
+    b_write_wave_file = False
 
     if b_write_wave_file:
         # open the wave writer
