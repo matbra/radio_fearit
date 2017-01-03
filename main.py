@@ -64,12 +64,16 @@ def streamurl(url):
 
     if True:
         # set some more parameters from the README.md accompanying the language model
-        # ps_config.set_string("-lw", "10")
+        ps_config.set_int("-lw", 10)
+        ps_config.set_string("-feat", "1s_c_d_dd")
+        ps_config.set_float("-beam", 1e-80)
+        ps_config.set_float("-wbeam", 1e-40)
         # pass
-        # ps_config.set_string("-wip", "0.2")
+        ps_config.set_float("-wip", 0.2)
         ps_config.set_string("-agc", "none")
         ps_config.set_string("-varnorm", "no")
         ps_config.set_string("-cmn", "current")
+        ps_config.set_int("-ds", 2)
     dec_speech = Decoder(ps_config)
 
     # initialize the database connection
