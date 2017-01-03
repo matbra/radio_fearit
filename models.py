@@ -21,7 +21,7 @@ class Words(peewee.Model):
     ORM model of album table
     """
     # id = peewee.IntegerField()
-    date = peewee.DateTimeField(default=peewee.datetime.datetime.now())
+    date = peewee.DateTimeField(default=peewee.datetime.datetime.now)
     word = peewee.CharField()
 
     class Meta:
