@@ -1,0 +1,1 @@
+SQLALCHEMY_DATABASE_URI = "mysql+pymysql://radio_fearit:Unf17m4*@lvps83-169-2-231.dedicated.hosteurope.de/radio_fearit"

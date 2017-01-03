@@ -1,0 +1,27 @@
+<html>
+<head>
+    <title>Radio Fearit!</title>
+
+    <!-- include react stuff -->
+    <!--<meta charset="UTF-8">-->
+    <script type="text/javascript" src="static/react/web/js/vendors.js"></script>
+
+    <!--stylesheet-->
+    <link rel="stylesheet" type="text/css" href="static/css/standard.css">
+</head>
+<body>
+
+
+
+<h1>This is the mood in today's radio...</h1>
+<script>
+    var words = {{ words | tojson }};
+    var count = {{ count | tojson }};
+    <!--console.log(words)-->
+    <!--console.log(count)-->
+</script>
+<div id="figure"></div>
+<script type="text/javascript" src="static/react/web/js/bundle.js"></script>
+<!--<Welcome name="Sara" data=data/>-->
+</body>
+</html>
