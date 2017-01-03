@@ -31,7 +31,7 @@ from models import Words
 from pocketsphinx.pocketsphinx import *
 from sphinxbase.sphinxbase import  *
 
-CHUNK_SIZE = 1024
+CHUNK_SIZE = 1*1024
 MODELDIR = join(dirname(__file__), "./sphinx_models/de_DE")
 
 def find_frame_start(buffer):
@@ -84,10 +84,10 @@ def streamurl(url):
         ps_config.set_string("-cmn", "current")
         ps_config.set_int("-ds", 1)
 
-        # ps_config.set_int("-vad_postspeech", 5)
-        # ps_config.set_int("-vad_prespeech", 2)
-        # ps_config.set_int("-vad_startspeech", 1)
-        # ps_config.set_int("-vad_threshold", 1)
+        ps_config.set_int("-vad_postspeech", 20)
+        ps_config.set_int("-vad_prespeech", 20)
+        ps_config.set_int("-vad_startspeech", 10)
+        ps_config.set_float("-vad_threshold", 2)
 
     dec_speech = Decoder(ps_config)
 
@@ -141,6 +141,7 @@ def streamurl(url):
             ww.writeframes(left)
 
         dec_speech.process_raw(left, False, False)
+        # dec_speech
 
         if False:
             try:
@@ -151,6 +152,8 @@ def streamurl(url):
 
         # if dec_speech.get_in_speech():
         #     pass
+
+        # print("in speech", dec_speech.get_in_speech())
 
         if dec_speech.get_in_speech() != in_speech_bf:
             in_speech_bf = dec_speech.get_in_speech()
