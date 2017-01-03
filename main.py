@@ -64,10 +64,10 @@ def streamurl(url):
 
     if True:
         # set some more parameters from the README.md accompanying the language model
-        ps_config.set_int("-lw", 10)
+        # ps_config.set_int("-lw", 10)
         ps_config.set_string("-feat", "1s_c_d_dd")
-        ps_config.set_float("-beam", 1e-80)
-        ps_config.set_float("-wbeam", 1e-40)
+        # ps_config.set_float("-beam", 1e-80)
+        # ps_config.set_float("-wbeam", 1e-40)
         # pass
         ps_config.set_float("-wip", 0.2)
         ps_config.set_string("-agc", "none")
