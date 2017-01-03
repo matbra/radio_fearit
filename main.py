@@ -1,10 +1,4 @@
 import sys
-if sys.version_info.major == 2:
-    from urllib import urlopen
-elif sys.version_info.major == 3:
-    from urllib.request import urlopen
-else:
-    raise("python version maybe not supported.")
 from os.path import join, dirname
 import wave
 import struct
@@ -18,6 +12,19 @@ sys.path.append(join(dirname(__file__), "build", "lib", "python3.3", "site-packa
 sys.path.append(join(dirname(__file__), "build", "lib", "python3.3", "site-packages", "pocketsphinx-0.0.9-py3.3-linux-x86_64.egg", "pocketsphinx"))
 sys.path.append(join(dirname(__file__), "build", "lib", "python3.3", "site-packages", "pocketsphinx-0.0.9-py3.3-linux-x86_64.egg", "sphinxbase"))
 # sys.path.append(join(dirname(__file__), "build", "lib", "python3.3", "site-packages", "sphinxbase"))
+
+#sys.path.append(join(dirname(__file__), "build", "lib")
+
+if sys.version_info.major == 2:
+    from urllib import urlopen
+elif sys.version_info.major == 3:
+    from urllib.request import urlopen
+else:
+    raise("python version maybe not supported.")
+
+import peewee
+from models import Words
+
 
 from pocketsphinx.pocketsphinx import *
 from sphinxbase.sphinxbase import  *
@@ -56,6 +63,10 @@ def streamurl(url):
     ps_config.set_string('-logfn', '/dev/null')
     dec_speech = Decoder(ps_config)
 
+    # initialize the database connection
+    # db = MySQLDatabase('radio_fearit', user="radio_fearit", passwd="Unf17m4*")
+
+
     # find the start index
     idx_start = None
     while True:
@@ -90,11 +101,13 @@ def streamurl(url):
         ww.writeframes(left)
 
         dec_speech.process_raw(left, False, False)
-        try:
-            if dec_speech.hyp().hypstr != "":
-                print("partial decoding result: ", dec_speech.hyp().hypstr)
-        except AttributeError:
-            pass
+
+        if False:
+            try:
+                if dec_speech.hyp().hypstr != "":
+                    print("partial decoding result: ", dec_speech.hyp().hypstr)
+            except AttributeError:
+                pass
 
         if dec_speech.get_in_speech():
             pass
@@ -106,6 +119,9 @@ def streamurl(url):
                 try:
                     if dec_speech.hyp().hypstr != '':
                         print('Stream decoding result:', dec_speech.hyp().hypstr)
+                        for word in dec_speech.hyp().hypstr.split():
+                            new_word = Words.create(word=word)
+                            new_word.save()
                 except AttributeError:
                     pass
                 dec_speech.start_utt()
