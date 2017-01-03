@@ -2,14 +2,14 @@ import sys
 from os.path import join, dirname
 import wave
 import struct
-sys.path.append(join(dirname(__file__), "build", "lib", "python3.3", "site-packages", "pymp3decoder-0.0.1-py3.3-linux-x86_64.egg"))
-sys.path.append(join(dirname(__file__), "build", "lib", "python3.3", "site-packages", "pymp3decoder-0.0.1-py3.3-linux-x86_64.egg", "pymp3decoder"))
+# sys.path.append(join(dirname(__file__), "build", "lib", "python3.3", "site-packages", "pymp3decoder-0.0.1-py3.3-linux-x86_64.egg"))
+# sys.path.append(join(dirname(__file__), "build", "lib", "python3.3", "site-packages", "pymp3decoder-0.0.1-py3.3-linux-x86_64.egg", "pymp3decoder"))
 
 from pymp3decoder import Decoder as Decoder_mp3
 
-sys.path.append(join(dirname(__file__), "build", "lib", "python3.3", "site-packages", "pocketsphinx-0.0.9-py3.3-linux-x86_64.egg"))
-sys.path.append(join(dirname(__file__), "build", "lib", "python3.3", "site-packages", "pocketsphinx-0.0.9-py3.3-linux-x86_64.egg", "pocketsphinx"))
-sys.path.append(join(dirname(__file__), "build", "lib", "python3.3", "site-packages", "pocketsphinx-0.0.9-py3.3-linux-x86_64.egg", "sphinxbase"))
+# sys.path.append(join(dirname(__file__), "build", "lib", "python3.3", "site-packages", "pocketsphinx-0.0.9-py3.3-linux-x86_64.egg"))
+# sys.path.append(join(dirname(__file__), "build", "lib", "python3.3", "site-packages", "pocketsphinx-0.0.9-py3.3-linux-x86_64.egg", "pocketsphinx"))
+# sys.path.append(join(dirname(__file__), "build", "lib", "python3.3", "site-packages", "pocketsphinx-0.0.9-py3.3-linux-x86_64.egg", "sphinxbase"))
 # sys.path.append(join(dirname(__file__), "build", "lib", "python3.3", "site-packages", "sphinxbase"))
 
 #sys.path.append(join(dirname(__file__), "build", "lib")
@@ -48,11 +48,12 @@ def streamurl(url):
 
     u = urlopen(url)
 
-    # open the wave writer
-    ww = wave.open("tempout.wav", 'wb')
-    ww.setnchannels(1)
-    ww.setframerate(44100)
-    ww.setsampwidth(2)
+    if False:
+        # open the wave writer
+        ww = wave.open("tempout.wav", 'wb')
+        ww.setnchannels(1)
+        ww.setframerate(44100)
+        ww.setsampwidth(2)
 
     # prepare pocketsphinx
     ps_config = Decoder.default_config()
@@ -106,7 +107,9 @@ def streamurl(url):
 
         # extract the left channel (wave interleaved format)
         left = b"".join([decoded[_:_+2] for _ in range(0, len(decoded), 4)])
-        ww.writeframes(left)
+
+        if False:
+            ww.writeframes(left)
 
         dec_speech.process_raw(left, False, False)
 
@@ -138,7 +141,8 @@ def streamurl(url):
             print("stream ended.")
             break
 
-    ww.close()
+    if False:
+        ww.close()
 
 if __name__ == "__main__":
     url = "http://dradio_mp3_dlf_m.akacast.akamaistream.net/7/249/142684/v1/gnl.akacast.akamaistream.net/dradio_mp3_dlf_m"
