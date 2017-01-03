@@ -5,7 +5,6 @@ import struct
 sys.path.append(join(dirname(__file__), "build", "lib", "python3.3", "site-packages", "pymp3decoder-0.0.1-py3.3-linux-x86_64.egg"))
 sys.path.append(join(dirname(__file__), "build", "lib", "python3.3", "site-packages", "pymp3decoder-0.0.1-py3.3-linux-x86_64.egg", "pymp3decoder"))
 
-print(sys.path)
 from pymp3decoder import Decoder as Decoder_mp3
 
 sys.path.append(join(dirname(__file__), "build", "lib", "python3.3", "site-packages", "pocketsphinx-0.0.9-py3.3-linux-x86_64.egg"))
