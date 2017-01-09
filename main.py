@@ -124,6 +124,8 @@ def streamurl(url):
         decoded, last = dec_mp3.decode(chunk, last)
         chunk = u.read(CHUNK_SIZE)
 
+        # if
+
         # extract the left channel (wave interleaved format)
         left = b"".join([decoded[_:_+2] for _ in range(0, len(decoded), 4)])
 
@@ -135,7 +137,10 @@ def streamurl(url):
             # convert byte data to numpy array
             left_np = np.fromstring(left, dtype=np.int16)
             # print(left_np)
-            left = resample(left_np, int(fs_target/fs_source  * len(left_np))).astype(np.int16).tobytes()
+            try:
+                left = resample(left_np, int(fs_target/fs_source  * len(left_np))).astype(np.int16).tobytes()
+            except:
+                print("bla")
 
         if b_write_wave_file:
             ww.writeframes(left)
@@ -163,7 +168,7 @@ def streamurl(url):
                 try:
                     if segment != '':
                         print('Stream decoding result:', segment)
-                        new_entries = [{'word': _} for _ in segment]
+                        new_entries = [{'word': _} for _ in segment if _ not in ['<s>', '</s>', '<sil>']]
                         Words.insert_many(new_entries).execute()
                         # for word in segment:
                         #     new_word = Words.create(word=word)
@@ -172,7 +177,7 @@ def streamurl(url):
                     pass
                 dec_speech.start_utt()
 
-        if chunk == "":
+        if chunk == b"":
             print("stream ended.")
             break
 
