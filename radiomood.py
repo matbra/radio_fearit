@@ -172,7 +172,7 @@ class radiomood():
                     try:
                         if segment != '':
                             print('Stream decoding result:', segment)
-                            new_entries = [{'word': _} for _ in segment if _ not in ['<s>', '</s>', '<sil>']]
+                            new_entries = [{'word': _} for _ in segment if _ not in ['<s>', '</s>', '<sil>', " "]]
                             Words.insert_many(new_entries).execute()
                     except AttributeError:
                         pass
