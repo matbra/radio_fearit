@@ -162,14 +162,7 @@ class radiomood():
             if self.b_write_wave_file:
                 self.ww.writeframes(left)
 
-            self.dec_speech.process_raw(left, False, False)
-
-            if False:
-                try:
-                    if dec_speech.hyp().hypstr != "":
-                        print("partial decoding result: ", dec_speech.seg())
-                except AttributeError:
-                    pass
+            self.dec_speech.process_raw(left, True, False)
 
             if self.dec_speech.get_in_speech() != in_speech_bf:
                 in_speech_bf = self.dec_speech.get_in_speech()
