@@ -182,6 +182,7 @@ class radiomood():
                 print("connection lost. reconnecting...")
                 self.connect()
                 chunk = self.find_mp3_header_start()
+                last = bytearray([])
 
 
         if self.b_write_wave_file:
